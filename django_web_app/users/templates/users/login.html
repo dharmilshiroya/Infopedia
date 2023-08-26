@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{%load static%}
+{% block content %}
+<div class="login">
+    <div>
+        <image class="leftr" src="{% static 'blog/LOGIN.svg' %}"></image>
+    </div>
+
+        <div class="right">
+                <form method="POST">
+        {% csrf_token %}
+            <text style="font-size:50px">Hello,</text>
+            <br>
+            <text style="font-size:30px">Welcome back</text>
+            <br>
+            <text style="font-size:20px; color:grey">Sign in to continue to Infopedia,</text>
+            <br><br><br>
+            <label style="font-size:18px">Username</label><br><br>
+            <input class="user" type="text" name="username" placeholder="Enter Username" required><br><br>
+            <label style="font-size:18px">Password</label><br><br>
+            <input class="pass" type="Password" name="password" placeholder="Enter Password" required><br><br>
+
+            <button class="logbtn" type="submit" name="login"> LogIn</button>
+            <br><br>
+            <h2><span class="or">Or</span></h2>
+                </form>
+            <a href="{% url 'register' %}">
+                <button class="regbtn" type="submit" name="register">Register</button>
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

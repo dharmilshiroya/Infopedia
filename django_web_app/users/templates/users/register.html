@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{%load static%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="login">
+    <div>
+        <div class="moto">
+            <text>Share your Knowledge and &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Documents with Infopedia</text>
+        </div>
+        <image class="lefts" src="{% static 'blog/SIGNUP.svg' %}"></image>
+    </div>
+    <div class="rights">
+        <form method="POST">
+            {% csrf_token %}
+        <text style="font-size:30px">Free Register,</text>
+        <br>
+        <text style="font-size:20px; color:grey">Get your free Infopedia account now.</text>
+        <br><br><br>
+        <label style="font-size:18px">Username</label><br><br>
+        <input class="newuser" type="text" name="newusername" placeholder="Enter Username" required><br><br>
+        <label style="font-size:18px">Email</label><br><br>
+        <input class="newemail" type="email" name="newemail" placeholder="Enter Email" required><br><br>
+        <label style="font-size:18px">Password</label><br><br>
+        <input class="newpass" type="Password" name="newpassword" placeholder="Enter Password" required><br><br>
+        <label style="font-size:18px">Password Confirmation</label><br><br>
+        <input class="newpass2" type="Password" name="newpassword2" placeholder="Enter Password" required><br><br>
+
+        <button class="signbtn" type="submit" name="signin"> SignIn</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

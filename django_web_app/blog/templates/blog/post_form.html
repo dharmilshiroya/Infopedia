@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="titlenew">New Post</div>
+<div class="newpost">
+        <div class="new">
+            <form  method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <label>Title</label><br><br>
+            <input class="nptitle" type="text" name="title" placeholder="Enter Post Title" required><br><br>
+            <label>Content</label><br><br>
+            <textarea class="npcontent" name="content" rows="6" cols="58"
+                      placeholder="Write post Content here..."></textarea><br><br>
+            <label>File</label><br><br>
+            <input type="file" name="file">
+            <br><br>
+            <button class="sharebtn" type="submit" name="Share"> Share</button>
+                </form>
+        </div>
+
+</div>
+{% endblock content %}

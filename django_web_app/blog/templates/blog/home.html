@@ -1,0 +1,116 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<div>
+    <div class="search">
+        <form  action="{% url 'search' %}" method="get">
+            <input class="sear" type="text"
+                   placeholder=" Search here"
+                   name="q" value="{{ request.GET.q }}">
+            <button onclick="searchform.submit()">
+                <i class="fa fa-search"
+                   style="font-size: 18px;">
+                </i>
+            </button>
+        </form>
+    </div>
+    <div class="mypos"><a href="{% url 'user-posts' user %}">
+        <button class="my" type="submit" name="mypost">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_5_30)">
+                    <path d="M17.0711 12.9289C15.9819 11.8398 14.6855 11.0335 13.2711 10.5454C14.786 9.50199 15.7812 7.75578 15.7812 5.78125C15.7812 2.59348 13.1878 0 10 0C6.81223 0 4.21875 2.59348 4.21875 5.78125C4.21875 7.75578 5.21402 9.50199 6.72898 10.5454C5.31453 11.0335 4.01813 11.8398 2.92895 12.9289C1.0402 14.8177 0 17.3289 0 20H1.5625C1.5625 15.3475 5.34754 11.5625 10 11.5625C14.6525 11.5625 18.4375 15.3475 18.4375 20H20C20 17.3289 18.9598 14.8177 17.0711 12.9289ZM10 10C7.67379 10 5.78125 8.1075 5.78125 5.78125C5.78125 3.455 7.67379 1.5625 10 1.5625C12.3262 1.5625 14.2188 3.455 14.2188 5.78125C14.2188 8.1075 12.3262 10 10 10Z"
+                          fill="white"/>
+                </g>
+                <defs>
+                    <clipPath id="clip0_5_30">
+                        <rect width="20" height="20" fill="white"/>
+                    </clipPath>
+                </defs>
+            </svg>
+            My Post
+        </button>
+        </a>
+        <a href="{% url 'post-create' %} "><button  class="add" type="submit" name="mypost">
+            <svg width="15" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.692 14.62V8.252H0.484V6.812H6.692V0.476H8.292V6.812H14.404V8.252H8.292V14.62H6.692Z"
+                      fill="white"/>
+            </svg>
+
+            Add Post
+        </button></a>
+    </div>
+</div>
+{% for post in posts %}
+<div class="homes">
+    <div>
+        <a href="{{ post.author.profile.image.url }} " target="_blank"><img class="image" src="{{ post.author.profile.image.url }}"></a>
+    </div>
+    <div class="details">
+        <a href="{% url 'user-posts' post.author.username  %}"><text class="items itmes1">{{ post.author }}</text></a>
+            <small class="text-muted">{{ post.date_upload|date:"F d, Y" }}</small>
+        <br>
+        <text class="items itmes2">{{ post.title }}</text>
+        <br><br>
+        <text class="items itmes3">{{ post.content }}</text>
+        <br>
+    </div>
+    {% if post.file %}
+    <div class="downl">
+        <a href="{{ post.file.url }}" download >
+        <button class="btnss" type="submit" name="Downalod">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.6843 10.7368H1.31591C1.1484 10.7368 0.987755 10.8034 0.869311 10.9218C0.750867 11.0403 0.684326 11.2009 0.684326 11.3684C0.684326 11.5359 0.750867 11.6966 0.869311 11.815C0.987755 11.9335 1.1484 12 1.31591 12H12.6843C12.8518 12 13.0125 11.9335 13.1309 11.815C13.2494 11.6966 13.3159 11.5359 13.3159 11.3684C13.3159 11.2009 13.2494 11.0403 13.1309 10.9218C13.0125 10.8034 12.8518 10.7368 12.6843 10.7368ZM7.00012 0C6.83261 0 6.67197 0.0665411 6.55352 0.184985C6.43508 0.303429 6.36854 0.464074 6.36854 0.631579V7.32L4.29064 5.23579C4.17171 5.11686 4.01041 5.05005 3.84222 5.05005C3.67403 5.05005 3.51273 5.11686 3.3938 5.23579C3.27487 5.35472 3.20806 5.51602 3.20806 5.68421C3.20806 5.8524 3.27487 6.0137 3.3938 6.13263L6.55169 9.29053C6.61041 9.34972 6.68026 9.39671 6.75722 9.42877C6.83419 9.46084 6.91674 9.47735 7.00012 9.47735C7.08349 9.47735 7.16604 9.46084 7.24301 9.42877C7.31997 9.39671 7.38982 9.34972 7.44854 9.29053L10.6064 6.13263C10.6653 6.07374 10.712 6.00383 10.7439 5.92689C10.7758 5.84995 10.7922 5.76749 10.7922 5.68421C10.7922 5.60093 10.7758 5.51847 10.7439 5.44153C10.712 5.36459 10.6653 5.29468 10.6064 5.23579C10.5475 5.1769 10.4776 5.13019 10.4007 5.09832C10.3238 5.06645 10.2413 5.05005 10.158 5.05005C10.0747 5.05005 9.99227 5.06645 9.91533 5.09832C9.83839 5.13019 9.76848 5.1769 9.70959 5.23579L7.63169 7.32V0.631579C7.63169 0.464074 7.56515 0.303429 7.44671 0.184985C7.32826 0.0665411 7.16762 0 7.00012 0Z"
+                      fill="#4D58F9"/>
+            </svg>
+            Download
+        </button></a>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% else %}
+<div>
+    <div class="search">
+        <form  action="{% url 'search' %}" method="get">
+            <input class="sear" type="text"
+                   placeholder=" Search here"
+                   name="q" value="{{ request.GET.q }}">
+            <button onclick="searchform.submit()">
+                <i class="fa fa-search"
+                   style="font-size: 18px;">
+                </i>
+            </button>
+        </form>
+    </div>
+</div><br><br><br><br>
+{% for post in posts %}
+<div class="homes">
+    <div>
+        <a href="{{ post.author.profile.image.url }} " target="_blank"><img class="image" src="{{ post.author.profile.image.url }}"></a>
+    </div>
+    <div class="details">
+        <a href="{% url 'user-posts' post.author.username  %}"><text class="items itmes1">{{ post.author }}</text></a>
+            <small class="text-muted">{{ post.date_upload|date:"F d, Y" }}</small>
+        <br>
+        <text class="items itmes2">{{ post.title }}</text>
+        <br><br>
+        <text class="items itmes3">{{ post.content }}</text>
+        <br>
+    </div>
+    {% if post.file %}
+    <div class="downl">
+        <a href="{{ post.file.url }}" download >
+        <button class="btnss" type="submit" name="Downalod">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.6843 10.7368H1.31591C1.1484 10.7368 0.987755 10.8034 0.869311 10.9218C0.750867 11.0403 0.684326 11.2009 0.684326 11.3684C0.684326 11.5359 0.750867 11.6966 0.869311 11.815C0.987755 11.9335 1.1484 12 1.31591 12H12.6843C12.8518 12 13.0125 11.9335 13.1309 11.815C13.2494 11.6966 13.3159 11.5359 13.3159 11.3684C13.3159 11.2009 13.2494 11.0403 13.1309 10.9218C13.0125 10.8034 12.8518 10.7368 12.6843 10.7368ZM7.00012 0C6.83261 0 6.67197 0.0665411 6.55352 0.184985C6.43508 0.303429 6.36854 0.464074 6.36854 0.631579V7.32L4.29064 5.23579C4.17171 5.11686 4.01041 5.05005 3.84222 5.05005C3.67403 5.05005 3.51273 5.11686 3.3938 5.23579C3.27487 5.35472 3.20806 5.51602 3.20806 5.68421C3.20806 5.8524 3.27487 6.0137 3.3938 6.13263L6.55169 9.29053C6.61041 9.34972 6.68026 9.39671 6.75722 9.42877C6.83419 9.46084 6.91674 9.47735 7.00012 9.47735C7.08349 9.47735 7.16604 9.46084 7.24301 9.42877C7.31997 9.39671 7.38982 9.34972 7.44854 9.29053L10.6064 6.13263C10.6653 6.07374 10.712 6.00383 10.7439 5.92689C10.7758 5.84995 10.7922 5.76749 10.7922 5.68421C10.7922 5.60093 10.7758 5.51847 10.7439 5.44153C10.712 5.36459 10.6653 5.29468 10.6064 5.23579C10.5475 5.1769 10.4776 5.13019 10.4007 5.09832C10.3238 5.06645 10.2413 5.05005 10.158 5.05005C10.0747 5.05005 9.99227 5.06645 9.91533 5.09832C9.83839 5.13019 9.76848 5.1769 9.70959 5.23579L7.63169 7.32V0.631579C7.63169 0.464074 7.56515 0.303429 7.44671 0.184985C7.32826 0.0665411 7.16762 0 7.00012 0Z"
+                      fill="#4D58F9"/>
+            </svg>
+            Download
+        </button></a>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+{% endblock content %}

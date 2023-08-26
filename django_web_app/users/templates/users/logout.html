@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<!--    <div class="border-top pt-3">-->
+<!--        <small class="text-muted">-->
+<!--            <a href="{% url 'login' %}">Log In Again</a>-->
+<!--        </small>-->
+<!--    </div>-->
+
+<div class="comeback" style="margin:200px 0px 0px 300px;">
+    <H1 style="font-size:72px ">Thank You,<text style="font-size:42px ">for using infopedia</text></H1>
+    <text style="font-size:35px; display: flex; justify-content:center;">Come back to scroll infopedia</text><p>
+    <text style="font-size:30px"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;with your knowledge.</text><br></p>
+    <a style="font-size:25px;  color:rgb(79,88,240);" href="{% url 'login' %}">Log In Again</a>
+</div>
+   
+{% endblock content %}

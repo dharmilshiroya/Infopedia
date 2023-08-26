@@ -1,0 +1,38 @@
+{% extends "blog/base.html" %}
+{% load static%}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="edittitle">Edit Profile</div>
+<div class="profdata">
+    <div>
+        <img class="profilephoto" src="{{ user.profile.image.url }}">
+    </div>
+    <div class="useremail">
+        <text class="items itmes1">{{ user.username }}</text>
+        <br>
+        <text class="items itmes2">{{ user.email }}</text>
+        <br><br>
+    </div>
+    <div>
+        <a href="{% url 'logout' %}"><button class="logoutbtn" type="submit" name="logout"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 23 23" fill="None" stroke="rgb(79,88,240)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button></a>
+    </div>
+
+</div>
+<div class="editprof">
+    <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+    <div class="edit">
+        <label>Username</label><br><br>
+        <input class="username" type="text" name="username" placeholder="Username"><br><br>
+        <label>Email</label><br><br>
+        <input class="email" type="email" name="email" placeholder="xyz@gmail.com"><br><br>
+        {{p_form|crispy}}
+
+
+        <br><br>
+        <button class="updatebtn" type="submit" name="update"> Update</button>
+    </div>
+    </form>
+</div>
+{% endblock content %}
